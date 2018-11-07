@@ -41,7 +41,6 @@ def login(request):
 import sys
 import json
 from PIL import Image
-import smartcrop
 
 
 # def test(request):
