@@ -23,7 +23,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '^^$#e_)k(25l!psig^ggf+ol_2jc(90yg%wpn=!40)=&y0t53*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+import sys
+DEBUG=False
+if len(sys.argv)>1:
+    if sys.argv[1] == 'runserver':
+       DEBUG=True 
 
 ALLOWED_HOSTS = []
 
@@ -31,6 +35,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'sorl.thumbnail',
     'imgsucker',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -38,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social_django',
+    'django_social_share',
 ]
 
 MIDDLEWARE = [
@@ -48,6 +55,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'imgsucker.urls'
@@ -63,12 +72,26 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
+                
+                'django.template.context_processors.request',
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'imgsucker.wsgi.application'
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
+
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 
 # Database
@@ -125,3 +148,26 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static")
+]
+
+MEDIA_ROOT= os.path.join(BASE_DIR, 'media')
+MEDIA_URL= "/media/"
+AUTH_USER_MODEL = 'imgsucker.User'
+
+
+LOGIN_URL = 'fr_login'
+LOGOUT_URL = 'fr_logout'
+LOGIN_REDIRECT_URL = 'fr_home'
+
+
+# SOCIAL_AUTH_GOOGLE_OAUTH2_KEY =  '891867053852-0464eurr0fbqh5cmpfghi23hmgdqrf0g.apps.googleusercontent.com'
+# SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET =  'NNSQlHen0DZtMX1Kynhkh6rl'
+# LOGIN_REDIRECT_URL = '//'
+# SOCIAL_AUTH__KEY = 
+# SOCIAL_AUTH__SECRET = 
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='328002259187-4vltcgp2vjaffg3jlqb885mk2o9v5t9s.apps.googleusercontent.com'  #Paste CLient Key
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'zcJdYqv2NppDqMf_uhkNlb3N' #Paste Secret Key
