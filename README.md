@@ -21,8 +21,7 @@ size	s
 
 SITELIST
 site 										with keyword
-https://wallpaperscraft.com 				3840x2400
-http://www.picswalls.com/
+
 
 
 

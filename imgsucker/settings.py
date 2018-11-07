@@ -29,7 +29,7 @@ if len(sys.argv)>1:
     if sys.argv[1] == 'runserver':
        DEBUG=True 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost','178.128.110.195','is.rikhsan.com']
 
 
 # Application definition
