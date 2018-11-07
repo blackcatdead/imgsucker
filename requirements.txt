@@ -22,7 +22,7 @@ requests==2.20.0
 requests-oauthlib==1.0.0
 selenium==3.14.1
 six==1.11.0
-smartcrop==0.1
+
 social-auth-app-django==3.1.0
 social-auth-core==2.0.0
 sorl-thumbnail==12.5.0
